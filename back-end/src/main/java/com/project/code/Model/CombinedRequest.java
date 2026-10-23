@@ -1,7 +1,7 @@
 package com.project.code.Model;
 
 public class CombinedRequest {
-    
+
     private Product product;
     private Inventory inventory;
 
