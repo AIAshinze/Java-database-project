@@ -1,4 +1,4 @@
-const apiURL = '';
+const apiURL = window.RETAIL_API_URL || 'http://localhost:8080';
 let students = [];
 let Ordercount = 1;
 let deleteRow = [];
@@ -129,8 +129,8 @@ function fillProductId(count) {
                 return response.json();
             })
             .then(data => {
-    
-               showOrderSuggestion(data.product, count);
+
+                showOrderSuggestion(data.product, count);
             })
             .catch(error => {
                 alert(error);
@@ -492,7 +492,7 @@ function fillProductName() {
                 return response.json();
             })
             .then(data => {
-               showproductSuggestion(data.products);
+                showproductSuggestion(data.products);
             })
             .catch(error => {
                 alert(error);
@@ -680,7 +680,7 @@ function showModal(id, name, action) {
 
 
 function deleteItembyId(id) {
- 
+
 
 
     let url = `${apiURL}/product/${id}`;
@@ -703,7 +703,7 @@ function deleteItembyId(id) {
 }
 
 function removeFromInventory(id) {
-    let url = `${apiURL}/inventory/${id}`
+    let url = `${apiURL}/inventory/${id}?storeId=${storeId}`
     fetch(url, {
         method: "DELETE",
         headers: { "content-type": "application/json" },
@@ -732,13 +732,11 @@ async function filterParentProduct() {
         viewProductList();
         return;
     }
-    else if(category.trim() == 'Allcategory')
-    {
-        category=null;
+    else if (category.trim() == 'Allcategory') {
+        category = null;
     }
-    else if(productName.trim().length == 0)
-    {
-        productName=null;
+    else if (productName.trim().length == 0) {
+        productName = null;
     }
 
     let url = `${apiURL}/product/category/${productName}/${category}`;
@@ -938,7 +936,7 @@ async function placeOrder(event) {
                 location.href = "index.html?id=navBar4";
             }
             else {
-                alert(data.error);
+                alert(data.Error || data.error || "Unable to place order");
             }
         })
 

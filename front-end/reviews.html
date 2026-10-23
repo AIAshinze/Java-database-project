@@ -76,15 +76,17 @@
     </div>
 
     <script>
+        const apiURL = window.RETAIL_API_URL || 'http://localhost:8080';
+
         window.onload = () => {
-            
+
             const url = window.location.href;
             const params = new URLSearchParams(window.location.search);
             let storeId = params.get('storeId');
             let productName = params.get('productName');
             let productId = params.get('productId');
-            let backDiv=document.getElementById('back-button');
-            backDiv.innerHTML=`<button id="backButton" type="button" value="${storeId}" onclick="goBackToInventory()">Go Back</button>`;
+            let backDiv = document.getElementById('back-button');
+            backDiv.innerHTML = `<button id="backButton" type="button" value="${storeId}" onclick="goBackToInventory()">Go Back</button>`;
             document.getElementById('product-id').value = productId;
             document.getElementById('product-name').value = productName;
             setTimeout(() => {
@@ -96,7 +98,7 @@
 
 
         function getReviews(storeId, productId) {
-            url = `URL/reviews/${storeId}/${productId}`;
+            url = `${apiURL}/reviews/${storeId}/${productId}`;
             fetch(url, {
                 method: "GET",
                 headers: { "content-type": "application/json" }
@@ -166,9 +168,9 @@
         }
 
         function goBackToInventory() {
-            
-            button=document.getElementById('backButton');
-            storeId=button.value;
+
+            button = document.getElementById('backButton');
+            storeId = button.value;
             location.href = `index.html?id=navBar3&storeid=${storeId}`;
         }
 
